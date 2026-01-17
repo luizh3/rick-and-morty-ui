@@ -4,22 +4,25 @@
 #include <QObject>
 #include <QVariant>
 
-class Response;
+class EpisodeDTO;
+class EpisodeController;
 class EpisodeScreenControl : public QObject
 {
     Q_OBJECT
 public:
-    explicit EpisodeScreenControl(QObject *parent = nullptr);
+    EpisodeScreenControl();
+    ~EpisodeScreenControl();
 
     Q_INVOKABLE void doSearch(const QString &episodeId);
 
 signals:
     void showCharacters(QVariant characters);
+    void messageError(const QString &message);
+    void showLoading(const QString &message);
 
 private:
-    Response findEpisodeById(const QString &episodeId) const;
-    Response findChractersByIds(const QStringList &charactersIds) const;
-    Response getApiRickAndMorty(const QString &dsPath) const;
+    std::unique_ptr<EpisodeController> _episodeController;
+    std::unique_ptr<EpisodeDTO> _episodeDTO;
 };
 
 #endif // EPISODESCREENCONTROL_H

@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include "episodescreencontrol.h"
+#include "control/episodescreencontrol.h"
 
 int main(int argc, char *argv[])
 {

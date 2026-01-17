@@ -15,9 +15,9 @@ qt_add_qml_module(apprick-and-morty-ui
     URI rick-and-morty-ui
     VERSION 1.0
     QML_FILES main.qml
-    QML_FILES EpisodeScreen.qml
-    QML_FILES EpisodeScreenDesign.ui.qml
-    SOURCES episodescreencontrol.h episodescreencontrol.cpp
+    QML_FILES ui/EpisodeScreen.qml
+    QML_FILES ui/EpisodeScreenDesign.ui.qml
+    SOURCES control/episodescreencontrol.h control/episodescreencontrol.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -33,6 +33,7 @@ set_target_properties(apprick-and-morty-ui PROPERTIES
 
 target_link_libraries(apprick-and-morty-ui
     PRIVATE
+    core
     Qt6::Quick
     Qt6::Network
 )
@@ -41,3 +42,5 @@ include(GNUInstallDirs)
 install(TARGETS apprick-and-morty-ui
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+add_subdirectory(core)
