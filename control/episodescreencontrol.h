@@ -5,6 +5,7 @@
 #include <QVariant>
 
 class EpisodeDTO;
+class CharacterDTO;
 class EpisodeController;
 class EpisodeScreenControl : public QObject
 {
@@ -21,6 +22,8 @@ signals:
     void showLoading(const QString &message);
 
 private:
+    void sortCharactersByName(QList<CharacterDTO *> &characters) const;
+
     std::unique_ptr<EpisodeController> _episodeController;
     std::unique_ptr<EpisodeDTO> _episodeDTO;
 };

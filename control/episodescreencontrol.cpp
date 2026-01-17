@@ -21,10 +21,14 @@ void EpisodeScreenControl::doSearch(const QString &episodeId)
     try {
         emit showLoading(tr("Aguarde..."));
 
-        // TODO If in the future you don't want to go through the UI, run with Qt::concurrent.
+        // TODO If in the future don't want lock the UI, run with Qt::concurrent.
         _episodeDTO.reset(_episodeController->findById(episodeId));
 
-        emit showCharacters(QVariant::fromValue(_episodeDTO->characters()));
+        QList<CharacterDTO *> characters = _episodeDTO->characters();
+
+        sortCharactersByName(characters);
+
+        emit showCharacters(QVariant::fromValue(characters));
 
     } catch (std::runtime_error &exception) {
         qInfo() << "EpisodeScreenControl::doSearch failed on fetch episode! [WHAT]"
@@ -34,4 +38,16 @@ void EpisodeScreenControl::doSearch(const QString &episodeId)
     }
 
     qInfo() << "EpisodeScreenControl::doSearch";
+}
+
+void EpisodeScreenControl::sortCharactersByName(QList<CharacterDTO *> &characters) const
+{
+    qInfo() << "EpisodeScreenControl::sortCharactersByName [CHARACTERS_COUNT]"
+            << characters.count();
+
+    std::sort(characters.begin(), characters.end(), [](CharacterDTO *first, CharacterDTO *second) {
+        return first->name().toLower() < second->name().toLower();
+    });
+
+    qInfo() << "EpisodeScreenControl::sortCharactersByName";
 }

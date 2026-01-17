@@ -17,10 +17,12 @@ EpisodeService::~EpisodeService() = default;
 
 EpisodeDTO* EpisodeService::findById(const QString& episodeId) const
 {
+    qInfo() << "EpisodeService::findById [EPISODE_ID]" << episodeId;
+
     std::unique_ptr<Response> episodeResponse(_episodeEndpoint->findById(episodeId));
 
     if (!episodeResponse->isSuccess()) {
-        qInfo() << "EpisodeService::findById failed on find episode";
+        qCritical() << "EpisodeService::findById failed on find episode";
         throw std::runtime_error("Failed on search episode!");
     }
 
@@ -30,11 +32,13 @@ EpisodeDTO* EpisodeService::findById(const QString& episodeId) const
         _characterEndpoint->findByIds(episodeDTO->charactersIds()));
 
     if (!charactersResponse->isSuccess()) {
-        qInfo() << "EpisodeService::findById failed on find characters";
+        qCritical() << "EpisodeService::findById failed on find characters";
         throw std::runtime_error("Failed on search characters!");
     }
 
     episodeDTO->setCharacters(CharacterDTO::fromJson(charactersResponse->data()));
+
+    qInfo() << "EpisodeService::findById";
 
     return episodeDTO;
 }

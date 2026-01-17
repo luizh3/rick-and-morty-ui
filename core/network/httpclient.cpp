@@ -5,7 +5,6 @@
 #include <QNetworkRequest>
 
 #include <QEventLoop>
-
 #include <QJsonDocument>
 
 #include "response/httpstatuscode.h"
