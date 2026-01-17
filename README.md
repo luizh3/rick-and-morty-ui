@@ -4,6 +4,15 @@ Projeto desenvolvido com o objetivo de consumir e exibir dados da **API do Rick 
 
 ---
 
+## Tecnologias e Requisitos
+
+- **Qt 6.8**
+- **C++**
+- **QML**
+- **CMake**
+
+---
+
 ##  Live Coding
 
 Este projeto foi desenvolvido durante uma sessão de **live-coding**.
